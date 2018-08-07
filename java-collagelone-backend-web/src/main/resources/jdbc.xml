@@ -10,8 +10,6 @@
   	http://www.springframework.org/schema/aop 
   	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
 	   default-autowire="byName">
-
-
 	<!--druid-->
 	<bean id="javatplMasterDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driverClass}"/>
@@ -62,13 +60,13 @@
 		<aop:aspect ref="multiDataSourceAspect" >
             <!-- 为DAO层的Mapper自动选择数据源：默认规则是select开头的方法选择从库，其他像update、insert等方法选择主库。
                  可更改multiDataSourceAspect的slaveSuffix的值来改变默认策略 -->
-			<aop:pointcut id="daoDataSourceAutoSelect" expression="execution(* com.collagelone.*.dao.*.mapper.*.*(..))"/>
+			<aop:pointcut id="daoDataSourceAutoSelect" expression="execution(* com.collagelone.*.dao.mapper.*.*(..))"/>
 			<aop:before pointcut-ref="daoDataSourceAutoSelect" method="before"/>
 			<aop:after pointcut-ref="daoDataSourceAutoSelect" method="after"/>
 
             <!-- 为事务控制自动选择数据源：扫描有@Transactional注解的service方法，默认切换到上面配置的defaultTransDb数据源去执行事务。
                  如果要切换其他数据源，可以在方法上再加一个@SpecifyDS({value})，在value中注明是哪个数据源ID -->
-            <aop:pointcut id="transDataSourceAutoSelect" expression="execution(* com.collagelone.*.dao.*.mapper.*.*(..))"/>
+            <aop:pointcut id="transDataSourceAutoSelect" expression="execution(* com.collagelone.*.dao.mapper.*.*(..))"/>
             <aop:before pointcut-ref="transDataSourceAutoSelect" method="beforeTrans"/>
             <aop:after pointcut-ref="transDataSourceAutoSelect" method="after"/>
 		</aop:aspect>

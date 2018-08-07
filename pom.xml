@@ -27,10 +27,16 @@
         <javax.validation.version>1.1.0.Final</javax.validation.version>
         <com.github.pagehelper.version>3.6.3</com.github.pagehelper.version>
         <slf4j.version>1.7.10</slf4j.version>
+        <fastjson.version>1.2.32</fastjson.version>
         <org.codehaus.janino.version>2.6.1</org.codehaus.janino.version>
     </properties>
     <dependencyManagement>
         <dependencies>
+        <dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+		</dependency>
         <!-- spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -136,22 +142,19 @@
             </dependency>
             <!--servlet -->
             <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>2.5</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>jsp-api</artifactId>
-                <version>2.0</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>jstl</artifactId>
-                <version>1.2</version>
-            </dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+ 
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+      <scope>runtime</scope>
+    </dependency>
+
             <!-- page -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
@@ -207,12 +210,12 @@
         </dependency>
         <dependency>
        <groupId>javax.servlet</groupId>
-       <artifactId>servlet-api</artifactId>
+       <artifactId>javax.servlet-api</artifactId>
        <scope>provided</scope>
    </dependency>
    <dependency>
        <groupId>javax.servlet</groupId>
-       <artifactId>jsp-api</artifactId>
+       <artifactId>jstl</artifactId>
        <scope>provided</scope>
    </dependency>
    <dependency>

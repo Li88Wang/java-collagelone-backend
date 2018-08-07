@@ -14,4 +14,7 @@ package com.lonedog.platform.common;
  * @version 1.0
  */
 public class SystemConstant {
+
+  public static final String USER_INFO_KEY = "ad_admin_web_login_user";
+  public static final String USER_AUTH_KEY = "ad_admin_web_user_auth";
 }

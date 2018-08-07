@@ -8,7 +8,7 @@
 	"
 	default-autowire="byName">
 	<!--dataSource-->
-	<bean id="zbjSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="loneSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="mapperLocations">
@@ -18,11 +18,11 @@
 		</property>
 	</bean>
 	<bean id="sqlSession" name="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="zbjSqlSessionFactory" />
+		<constructor-arg index="0" ref="loneSqlSessionFactory" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!--指定接口所在的包-->		                                    
 		<property name="basePackage" value="com.collagelone.backend.dao.mapper" />
-		<property name="sqlSessionFactoryBeanName" value="zbjSqlSessionFactory" />
+		<property name="sqlSessionFactoryBeanName" value="loneSqlSessionFactory" />
 	</bean>
 </beans>

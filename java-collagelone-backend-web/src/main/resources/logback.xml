@@ -42,12 +42,9 @@
             <maxFileSize>500MB</maxFileSize>
             <totalSizeCap>4GB</totalSizeCap>
         </rollingPolicy>
-
-         <encoder class="com.zhubajie.ad.dsp.business.common.logback.LayoutWrappingEncoder">
-	        <layout class="ch.qos.logback.classic.PatternLayout">
-	        	<pattern>${MY_PATTERN}</pattern>
-                <charset>UTF-8</charset>
-	        </layout>
+         <encoder>
+            <pattern>${MY_PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
     <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -63,12 +60,9 @@
             <maxFileSize>500MB</maxFileSize>
             <totalSizeCap>4GB</totalSizeCap>
         </rollingPolicy>
-
-        <encoder class="com.zhubajie.ad.dsp.business.common.logback.LayoutWrappingEncoder">
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>${MY_PATTERN}</pattern>
-                <charset>UTF-8</charset>
-            </layout>
+        <encoder>
+            <pattern>${MY_PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
     <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">

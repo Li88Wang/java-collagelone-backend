@@ -2,18 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:context="http://www.springframework.org/schema/context" 
   xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:util="http://www.springframework.org/schema/util"
   xsi:schemaLocation="http://www.springframework.org/schema/context 
   http://www.springframework.org/schema/context/spring-context.xsd      
   http://www.springframework.org/schema/beans 
   http://www.springframework.org/schema/beans/spring-beans.xsd
-  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd"
+  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd"
   default-autowire="byName">  
     <!-- 静态的东西 -->
     <mvc:default-servlet-handler/>
     <!--<mvc:resources location="/static/" mapping="/static/**" /> -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="prefix" value="/WEB-INF/templates/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
     <!-- 完成请求和注解POJO的映射 -->
@@ -46,4 +48,27 @@
             </list>
         </property>
     </bean>
+    <!-- 页面白名单，跳过登录验证，和权限校验 -->
+    <util:list id="pageWhiteList">
+        <value>/</value>
+        <value>/login.html</value>
+        <value>/logOut.html</value>
+        <value>/loginInfo</value>
+        <value>/login/callback</value>
+        <value>/index.html</value>
+        <value>/error</value>
+        <value>/noPermission</value>
+        <value>/region/list.json</value>
+    </util:list>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/img/**"/>
+            <mvc:exclude-mapping path="/fonts/**"/>
+            <bean class="com.collagelone.backend.web.interceptor.AuthInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
