@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <property name="logger.root" value="/data/www/java/work/logs"/>
+    <property name="app.name" value="java-collagelone-backend-web"/>
+    <property name="MY_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [TxId : %X{PtxId} , SpanId : %X{PspanId}] [%-5p] | %thread | %X{__X-TraceID__} | %logger{36}:%L | %msg%n"/>
+    <contextName>${app.name}</contextName>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
+        <encoder>
+            <pattern>${MY_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logger.root}/${app.name}-debug.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>debug</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logger.root:-/data/www/java/work/logs}/${app.name}-debug-%d{yyyy-MM-dd}-NO.%i.log.zip</fileNamePattern>
+            <maxHistory>8</maxHistory>
+            <maxFileSize>500MB</maxFileSize>
+            <totalSizeCap>4GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${MY_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logger.root}/${app.name}-info.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logger.root:-/data/www/java/work/logs}/${app.name}-info-%d{yyyy-MM-dd}-NO.%i.log.zip</fileNamePattern>
+            <maxHistory>8</maxHistory>
+            <maxFileSize>500MB</maxFileSize>
+            <totalSizeCap>4GB</totalSizeCap>
+        </rollingPolicy>
+
+         <encoder class="com.zhubajie.ad.dsp.business.common.logback.LayoutWrappingEncoder">
+	        <layout class="ch.qos.logback.classic.PatternLayout">
+	        	<pattern>${MY_PATTERN}</pattern>
+                <charset>UTF-8</charset>
+	        </layout>
+        </encoder>
+    </appender>
+    <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logger.root}/${app.name}-warn.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>warn</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logger.root:-/data/www/java/work/logs}/${app.name}-warn-%d{yyyy-MM-dd}-NO.%i.log.zip</fileNamePattern>
+            <maxHistory>8</maxHistory>
+            <maxFileSize>500MB</maxFileSize>
+            <totalSizeCap>4GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder class="com.zhubajie.ad.dsp.business.common.logback.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>${MY_PATTERN}</pattern>
+                <charset>UTF-8</charset>
+            </layout>
+        </encoder>
+    </appender>
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logger.root}/${app.name}-error.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logger.root:-/data/www/java/work/logs}/${app.name}-error-%d{yyyy-MM-dd}-NO.%i.log.zip</fileNamePattern>
+            <maxHistory>8</maxHistory>
+            <maxFileSize>500MB</maxFileSize>
+            <totalSizeCap>4GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${MY_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <!-- 过滤指定类的日志 -->
+    <logger name="org.springframework.beans.factory.support.DefaultListableBeanFactory" level="INFO">
+    </logger>
+    <logger name="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" level="INFO">
+    </logger>
+    <logger name="com.collagelone.backend.dao.mapper" level="debug"/>
+
+    <root level="DEBUG">
+    <appender-ref ref="STDOUT" />
+      <!--   
+           <appender-ref ref="debug" />-->
+    <!--     <appender-ref ref="asyncInfolog"/>
+        <appender-ref ref="asyncWarnlog"/>
+        <appender-ref ref="asyncErrorlog"/>
+        <appender-ref ref="debug" /> -->
+    </root>
+
+</configuration>
