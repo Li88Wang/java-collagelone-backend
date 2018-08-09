@@ -12,8 +12,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
-import com.lonedog.platform.common.AjaxListResult;
-import com.lonedog.platform.common.AjaxResult;
+import com.lonedog.platform.common.dto.AjaxListResult;
+import com.lonedog.platform.common.dto.AjaxResult;
 import com.lonedog.platform.common.login.LoginContextHolder;
 
 /**

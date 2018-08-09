@@ -15,6 +15,7 @@ package com.lonedog.platform.common;
  */
 public class SystemConstant {
 
-  public static final String USER_INFO_KEY = "ad_admin_web_login_user";
-  public static final String USER_AUTH_KEY = "ad_admin_web_user_auth";
+  public static final String USER_INFO_KEY = "collagelone_login_user";
+  public static final String USER_AUTH_KEY = "collagelone_user_auth";
+  public static final String USER_LOGIN_CODE_KEY = "collagelone_login_code";
 }

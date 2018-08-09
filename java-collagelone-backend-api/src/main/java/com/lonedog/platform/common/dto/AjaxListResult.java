@@ -1,4 +1,4 @@
-package com.lonedog.platform.common;
+package com.lonedog.platform.common.dto;
 /**
  * <ul>
  * <li>文件名称 : com.lonedog.platform.common.AjaxListResult</li>

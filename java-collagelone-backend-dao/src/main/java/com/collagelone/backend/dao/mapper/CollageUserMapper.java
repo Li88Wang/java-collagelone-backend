@@ -14,4 +14,6 @@ public interface CollageUserMapper {
     int updateByPrimaryKeySelective(CollageUser record);
 
     int updateByPrimaryKey(CollageUser record);
+
+    CollageUser selectByOpenId(String openId);
 }

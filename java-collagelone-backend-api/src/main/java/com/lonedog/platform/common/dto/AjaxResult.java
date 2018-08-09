@@ -1,4 +1,4 @@
-package com.lonedog.platform.common;
+package com.lonedog.platform.common.dto;
 
 import java.io.Serializable;
 

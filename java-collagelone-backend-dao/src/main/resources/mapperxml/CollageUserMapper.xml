@@ -7,18 +7,26 @@
     <result column="show_name" property="showName" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="openId" property="open_id" jdbcType="VARCHAR" />
+    <result column="unionId" property="union_id" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="del" property="del" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, nick_name, show_name, email, phone, create_time, update_time, del
+    id, nick_name, show_name, email, phone,open_id,union_id, create_time, update_time, del
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from collage_user
     where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from collage_user
+    where open_id = #{openId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from collage_user
@@ -30,10 +38,10 @@
     </selectKey>
     insert into collage_user (id, nick_name, show_name, 
       email, phone, create_time, 
-      update_time, del)
+      update_time, del,open_id,union_id)
     values (#{id,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, #{showName,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{del,jdbcType=TINYINT})
+      #{updateTime,jdbcType=TIMESTAMP}, #{del,jdbcType=TINYINT},#{openId,jdbcType=VARCHAR},#{unionId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.collagelone.backend.dao.entity.CollageUser" >
   <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
@@ -55,6 +63,12 @@
       </if>
       <if test="phone != null" >
         phone,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -82,6 +96,12 @@
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -108,6 +128,12 @@
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -126,6 +152,8 @@
       show_name = #{showName,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       del = #{del,jdbcType=TINYINT}

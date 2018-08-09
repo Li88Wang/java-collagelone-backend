@@ -14,7 +14,6 @@ public class HelloController extends BaseController{
   @RequestMapping("/helloAjax")
   @ResponseBody
   public String helloAjax(){
-    System.out.print(1/0);
-    return "screen/backend/index";
+    return "小测试一把";
   }
 }

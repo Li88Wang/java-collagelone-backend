@@ -10,10 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.session.Session;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.collagelone.backend.auth.AuthBiz;
+import com.collagelone.backend.session.MyHttpSession;
 import com.lonedog.platform.common.login.LoginContext;
 import com.lonedog.platform.common.login.LoginContextHolder;
 import com.lonedog.platform.common.utils.EnvUtil;
@@ -28,12 +30,15 @@ public class AuthInterceptor extends AbstractAdInterceptor implements HandlerInt
 
     @Autowired
     private AuthBiz authBiz;
+    @Autowired
+    private MyHttpSession myHttpSession;
 
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)
         throws IOException {
-        return true;
+      Session Session = myHttpSession.getSession(httpServletRequest);
+      return true;
     }
 
     /**

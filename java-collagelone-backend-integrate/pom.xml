@@ -9,5 +9,15 @@
   </parent>
   <artifactId>java-collagelone-backend-integrate</artifactId>
   <dependencies>
+  <dependency>
+      <groupId>com.lonedog.platform</groupId>
+      <artifactId>java-collagelone-backend-common</artifactId>
+      <version>${project.parent.version}</version>
+  </dependency>
+  <dependency>
+      <groupId>com.lonedog.platform</groupId>
+      <artifactId>java-collagelone-backend-api</artifactId>
+      <version>${project.parent.version}</version>
+  </dependency>
   </dependencies>
 </project>
