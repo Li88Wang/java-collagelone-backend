@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.collagelone.backend.web.controller.BaseController;
+import com.lonedog.platform.common.dto.AjaxResult;
+import com.lonedog.platform.common.exception.BasicRuntimeException;
 
 /**
  * 统一错误页面
@@ -16,35 +18,40 @@ import com.collagelone.backend.web.controller.BaseController;
  * @since v1.0.0
  */
 @ControllerAdvice
+@ResponseBody
 public class ErrorInfoController extends BaseController{
 
     @ExceptionHandler({ SQLDataException.class })
-    public String sqlError(SQLDataException e) {
-        logger.error("发生 SQLDataException: ", e);
-        return "screen/error/500";
+    public AjaxResult sqlError(SQLDataException e) {
+      logger.error("发生 SQLDataException: ", e);
+      return putFailData("数据错误");
     }
 
     @ExceptionHandler({ IllegalArgumentException.class })
-    public String illegalError(IllegalArgumentException e) {
-        logger.error("发生 IllegalArgumentException: ", e);
-        return "screen/error/500";
+    public AjaxResult illegalError(IllegalArgumentException e) {
+      logger.error("发生 IllegalArgumentException: ", e);
+      return putFailData("参数错误");
     }
 
     @ExceptionHandler({ RuntimeException.class })
-    public String runtimeError(RuntimeException e) {
-        logger.error("发生 RuntimeException: ", e);
-        return "screen/error/500";
+    public AjaxResult runtimeError(RuntimeException e) {
+      logger.error("发生 RuntimeException: ", e);
+      if(e instanceof BasicRuntimeException){
+        return putFailData(e.getMessage());
+      }else{
+        return putFailData("请求时发生错误");
+      }
     }
 
     @ExceptionHandler({ IOException.class })
-    public String ioError(IOException e) {
-        logger.error("发生 IOException: ", e);
-        return "screen/error/500";
+    public AjaxResult ioError(IOException e) {
+      logger.error("发生 IOException: ", e);
+      return putFailData("网络错误");
     }
 
     @ExceptionHandler({ Exception.class })
-    public String error(Exception e) {
-        logger.error("发生 Exception: ", e);
-        return "screen/error/500";
+    public AjaxResult error(Exception e) {
+      logger.error("发生 Exception: ", e);
+      return putFailData("服务可能休息了，请稍后重试或联系管理员");
     }
 }
