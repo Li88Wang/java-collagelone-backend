@@ -2,11 +2,13 @@ package com.collagelone.backend.wx;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
 
 import com.collagelone.backend.api.dto.wx.CodeSessionDto;
+import com.collagelone.backend.api.dto.wx.ReqUserInfoDto;
 import com.collagelone.backend.dao.entity.CollageUser;
 import com.collagelone.backend.dao.mapper.CollageUserMapper;
 import com.collagelone.backend.integrate.WxService;
@@ -44,6 +46,7 @@ public class WxLoginBiz {
     SupportResult<Void> rsOperation = SupportResult.<Void>create();
     Session session = myHttpSession.getSession(codeNo);
     if(session != null && session.getAttribute(SystemConstant.USER_LOGIN_CODE_KEY) == null){
+      logger.info("com.collagelone.backend.auth.AuthBiz.login 已入档");
       return rsOperation.success();
     }
     // 当为null时设置一个
@@ -51,14 +54,20 @@ public class WxLoginBiz {
       session = myHttpSession.newSession(codeNo);
     }
     CodeSessionDto cSession = WxService.getSessionFromLoginCode(codeNo);
-    session.setAttribute(SystemConstant.USER_LOGIN_CODE_KEY, cSession);
-    myHttpSession.serialSessionWithTtl(codeNo,session);
+    myHttpSession.codeToSession(session, cSession);
     // 先存档
-    saveOrUpdate(cSession.getOpenid(),cSession.getUnionid());
+    CollageUser user = saveOrUpdate(cSession.getOpenId(),cSession.getUnionId());
+    myHttpSession.loginToSession(session, user);
+    myHttpSession.flushSession(session);
     return rsOperation.success();
   }
 
-  public void saveOrUpdate(String openId,String unionId){
+  /**持久化openId，unionId
+   * @param openId
+   * @param unionId
+   * @return
+   */
+  public CollageUser saveOrUpdate(String openId,String unionId){
     CollageUser user = collageUserMapper.selectByOpenId(openId);
     if(user == null ){
       user = new CollageUser();
@@ -66,14 +75,33 @@ public class WxLoginBiz {
     user.setOpenId(openId);
     user.setUnionId(unionId);
     saveOrUpdate(user);
+    return user;
   }
   
+  /**持久化用户信息
+   * @param user
+   */
   public void saveOrUpdate(CollageUser user){
     if(user.getId() == null){
       collageUserMapper.insertSelective(user);
     }else{
       collageUserMapper.updateByPrimaryKeySelective(user);
     }
+  }
+
+  public Result<Void> updateInfo(String codeNo,
+      ReqUserInfoDto reqUserInfo) {
+    SupportResult<Void> rsOperation = SupportResult.<Void>create();
+    // NOTE wangzhipeng 请求信息做校验...
+    // 获取session
+    Session session = myHttpSession.getValidSession(codeNo);
+    CodeSessionDto cSession = session.getAttribute(SystemConstant.USER_LOGIN_CODE_KEY);
+    CollageUser user = collageUserMapper.selectByOpenId(cSession.getOpenId());
+    // copy属性值
+    BeanUtils.copyProperties(reqUserInfo.getUserInfo(), user,"openId","unionId");
+    saveOrUpdate(user);
+    myHttpSession.loginToSessionInFlush(session, user);
+    return rsOperation.success();
   }
   
 }

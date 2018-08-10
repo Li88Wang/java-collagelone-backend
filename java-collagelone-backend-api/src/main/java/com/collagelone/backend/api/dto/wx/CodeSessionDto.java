@@ -21,7 +21,7 @@ public class CodeSessionDto implements Serializable{
   /**
    * 微信相对本appId的唯一标识
    */
-  private String openid;
+  private String openId;
   /**
    * 微信code的sessionKey
    */
@@ -29,17 +29,17 @@ public class CodeSessionDto implements Serializable{
   /**
    * 微信公众平台的联合Id
    */
-  private String unionid;
+  private String unionId;
   
   /**
    * 微信login获取的code
    */
   private String codeNo;
-  public String getOpenid() {
-    return openid;
-  }
+  /**兼容返回的openid
+   * @param openid
+   */
   public void setOpenid(String openid) {
-    this.openid = openid;
+    this.openId = openid;
   }
   public String getSessionKey() {
     return sessionKey;
@@ -53,17 +53,29 @@ public class CodeSessionDto implements Serializable{
   public void setSession_key(String sessionKey) {
     this.sessionKey = sessionKey;
   }
-  public String getUnionid() {
-    return unionid;
-  }
+  /**兼容返回的unionid
+   * @param unionid
+   */
   public void setUnionid(String unionid) {
-    this.unionid = unionid;
+    this.unionId = unionid;
   }
   public String getCodeNo() {
     return codeNo;
   }
   public void setCodeNo(String codeNo) {
     this.codeNo = codeNo;
+  }
+  public String getOpenId() {
+    return openId;
+  }
+  public void setOpenId(String openId) {
+    this.openId = openId;
+  }
+  public String getUnionId() {
+    return unionId;
+  }
+  public void setUnionId(String unionId) {
+    this.unionId = unionId;
   }
   
 }

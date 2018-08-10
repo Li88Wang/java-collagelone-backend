@@ -1,5 +1,6 @@
 package com.collagelone.backend.api.service.front.wx;
 
+import com.collagelone.backend.api.dto.wx.ReqUserInfoDto;
 import com.lonedog.platform.common.dto.Result;
 
 /**
@@ -21,4 +22,11 @@ public interface WxLoginService {
    * @return
    */
   Result<Void> login(String codeNo);
+
+  /**更新用户信息
+   * @param codeNo
+   * @param reqUserInfo
+   * @return
+   */
+  Result<Void> updateInfo(String codeNo,ReqUserInfoDto reqUserInfo);
 }

@@ -34,7 +34,23 @@ public class CollageUser extends BaseEntity {
      * 平台对应的用户id
      */
     private String unionId;
-
+    
+    /**
+     * 用户头像
+     */
+    private String avatarUrl;
+    /**
+     * 性别
+     */
+    private Byte gender;
+    /**
+     * 城市
+     */
+    private String city;
+    /**
+     * province
+     */
+    private String province;
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -93,6 +109,37 @@ public class CollageUser extends BaseEntity {
       this.unionId = unionId;
     }
 
+    public String getAvatarUrl() {
+      return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+      this.avatarUrl = avatarUrl;
+    }
+
+    public Byte getGender() {
+      return gender;
+    }
+
+    public void setGender(Byte gender) {
+      this.gender = gender;
+    }
+
+    public String getCity() {
+      return city;
+    }
+
+    public void setCity(String city) {
+      this.city = city;
+    }
+
+    public String getProvince() {
+      return province;
+    }
+
+    public void setProvince(String province) {
+      this.province = province;
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -106,6 +153,10 @@ public class CollageUser extends BaseEntity {
         sb.append(", phone=").append(phone);
         sb.append(", openId=").append(openId);
         sb.append(", unionId=").append(unionId);
+        sb.append(", avatarUrl=").append(avatarUrl);
+        sb.append(", gender=").append(gender);
+        sb.append(", city=").append(city);
+        sb.append(", province=").append(province);
         sb.append("]");
         return sb.toString();
     }

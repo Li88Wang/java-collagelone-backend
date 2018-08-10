@@ -36,23 +36,30 @@ public class LoginContext implements Serializable {
         return sb.toString();
     }
 
-    private int userId;
+    private Long userId;
     private String act;
     private String nickName;
     private String showName;
     private String email;
     private long time;
     private String userIp;
+    /**登陆code码
+     * 
+     */
     private String token;
+    /**
+     * open_id
+     */
     private String authUuid;
     private boolean isLogin = false;
 
-    public int getUserId() {
-        return userId;
+
+    public Long getUserId() {
+      return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserId(Long userId) {
+      this.userId = userId;
     }
 
     public String getAct() {

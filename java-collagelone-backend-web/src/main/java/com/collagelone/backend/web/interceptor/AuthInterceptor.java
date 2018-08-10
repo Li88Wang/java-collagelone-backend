@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.collagelone.backend.auth.AuthBiz;
 import com.collagelone.backend.session.MyHttpSession;
+import com.lonedog.platform.common.SystemConstant;
 import com.lonedog.platform.common.login.LoginContext;
 import com.lonedog.platform.common.login.LoginContextHolder;
 import com.lonedog.platform.common.utils.EnvUtil;
@@ -37,7 +38,13 @@ public class AuthInterceptor extends AbstractAdInterceptor implements HandlerInt
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)
         throws IOException {
-      Session Session = myHttpSession.getSession(httpServletRequest);
+      Session session = myHttpSession.getSession(httpServletRequest);
+      if(session != null){
+        LoginContext loginContext = session.getAttribute(SystemConstant.USER_INFO_KEY);
+        if(loginContext != null){
+          setLoginContext(loginContext,httpServletRequest.getRemoteAddr());
+        }
+      }
       return true;
     }
 

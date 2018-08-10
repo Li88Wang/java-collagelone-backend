@@ -7,14 +7,18 @@
     <result column="show_name" property="showName" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="openId" property="open_id" jdbcType="VARCHAR" />
-    <result column="unionId" property="union_id" jdbcType="VARCHAR" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="TINYINT" />
+    <result column="city" property="union_id" jdbcType="city" />
+    <result column="province" property="union_id" jdbcType="province" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="del" property="del" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, nick_name, show_name, email, phone,open_id,union_id, create_time, update_time, del
+    id, nick_name, show_name, email, phone,open_id,union_id,avatar_url,city,province,gender, create_time, update_time, del
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -37,10 +41,11 @@
             SELECT LAST_INSERT_ID()
     </selectKey>
     insert into collage_user (id, nick_name, show_name, 
-      email, phone, create_time, 
+      email, phone,avatar_url,city,province,gender, create_time, 
       update_time, del,open_id,union_id)
     values (#{id,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, #{showName,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},#{avatarUrl,jdbcType=VARCHAR},
+      #{city,jdbcType=VARCHAR},#{province,jdbcType=VARCHAR},#{gender,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{del,jdbcType=TINYINT},#{openId,jdbcType=VARCHAR},#{unionId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.collagelone.backend.dao.entity.CollageUser" >
@@ -69,6 +74,18 @@
       </if>
       <if test="unionId != null" >
         union_id,
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="gender != null" >
+        gender,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -102,6 +119,18 @@
       <if test="unionId != null" >
         #{unionId,jdbcType=VARCHAR},
       </if>
+      <if test="avatarUrl != null" >
+        #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=TINYINT},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -134,6 +163,18 @@
       <if test="unionId != null" >
         union_id = #{unionId,jdbcType=VARCHAR},
       </if>
+      <if test="avatarUrl != null" >
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=TINYINT},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -153,6 +194,10 @@
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       open_id = #{openId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
       union_id = #{unionId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
