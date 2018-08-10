@@ -99,7 +99,7 @@ public class BaseController {
     /**
      * 获取当前登录人id
      */
-    protected Integer getLoginUserId() {
+    protected Long getLoginUserId() {
         return LoginContextHolder.getLoginContext().getUserId();
     }
 
