@@ -9,7 +9,7 @@
        default-autowire="byName">
     <!-- 文件替换 -->   
     <context:property-placeholder location="classpath:conf.properties" />
-    <context:component-scan base-package="com.collagelone"/>
+    <context:component-scan base-package="com.collagelone,com.lonedog"/>
     <import resource="jdbc.xml"/>
     <import resource="redis_JedisPool.xml"/>
     <import resource="spring-mybatis.xml"/>

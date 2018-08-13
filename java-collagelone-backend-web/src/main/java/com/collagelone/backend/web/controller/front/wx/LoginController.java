@@ -11,6 +11,19 @@ import com.collagelone.backend.api.service.front.wx.WxLoginService;
 import com.collagelone.backend.web.controller.BaseController;
 import com.lonedog.platform.common.dto.AjaxResult;
 import com.lonedog.platform.common.dto.Result;
+/**
+ * <ul>
+ * <li>文件名称 : com.collagelone.backend.web.controller.front.wx.LoginController</li>
+ * <li>创建时间 : 2018年8月13日</li>
+ * <li>修改记录 : 无</li>
+ * <li>描    述 : 
+ * 用户登陆及信息交互入口
+ * </li>
+ * </ul>
+ * 
+ * @author wangzhipeng
+ * @version 1.0
+ */
 @Controller
 public class LoginController extends BaseController{
   @Autowired

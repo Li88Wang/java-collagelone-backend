@@ -35,7 +35,7 @@ public class WxService {
     StringBuilder url = new StringBuilder("https://api.weixin.qq.com/sns/jscode2session?");
     url.append("appid=").append(CenterConfig.getInstance().getAppId())
     .append("&secret=").append(CenterConfig.getInstance().getAppSecret())
-    .append("&code=").append(loginCode)
+    .append("&js_code=").append(loginCode)
     .append("&grant_type=").append("authorization_code");
     logger.info("com.collagelone.backend.integrate.WxService.getSessionFromLoginCode入参-{}",loginCode);
     String result = RestTemplateUtils.getRestTemplate().getForObject(url.toString(), String.class);

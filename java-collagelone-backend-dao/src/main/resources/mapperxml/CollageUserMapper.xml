@@ -11,8 +11,8 @@
     <result column="union_id" property="unionId" jdbcType="VARCHAR" />
     <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
     <result column="gender" property="gender" jdbcType="TINYINT" />
-    <result column="city" property="union_id" jdbcType="city" />
-    <result column="province" property="union_id" jdbcType="province" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="del" property="del" jdbcType="TINYINT" />

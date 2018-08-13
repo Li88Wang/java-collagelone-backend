@@ -35,6 +35,10 @@ public class SupportResult<T> extends Result<T> {
   public SupportResult<T> success(){
 	return success(null);
   }
+  
+  public static AjaxResult toAjaxResult(Result result){
+    return new AjaxResult(result.isSuccess() ? 1 : 0,result.getDescription(),result.getData());
+  }
 
   /**
    * 赋予一个新的对象

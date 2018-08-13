@@ -45,7 +45,7 @@ public class WxLoginBiz {
   public Result<Void> login(String codeNo) {
     SupportResult<Void> rsOperation = SupportResult.<Void>create();
     Session session = myHttpSession.getSession(codeNo);
-    if(session != null && session.getAttribute(SystemConstant.USER_LOGIN_CODE_KEY) == null){
+    if(session != null && session.getAttribute(SystemConstant.USER_LOGIN_CODE_KEY) != null){
       logger.info("com.collagelone.backend.auth.AuthBiz.login 已入档");
       return rsOperation.success();
     }
