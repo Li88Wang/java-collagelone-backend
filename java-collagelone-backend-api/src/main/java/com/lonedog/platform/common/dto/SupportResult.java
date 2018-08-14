@@ -1,5 +1,7 @@
 package com.lonedog.platform.common.dto;
 
+import com.collagelone.backend.api.dto.wx.ResOrderInfoListDto;
+
 
 /**
  * <ul>
@@ -39,7 +41,12 @@ public class SupportResult<T> extends Result<T> {
   public static AjaxResult toAjaxResult(Result result){
     return new AjaxResult(result.isSuccess() ? 1 : 0,result.getDescription(),result.getData());
   }
-
+  
+  public static <T> Result toResult(T data){
+    Result<T> result = Result.create();
+    result.success(data);
+    return result;
+  }
   /**
    * 赋予一个新的对象
    */

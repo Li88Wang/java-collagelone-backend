@@ -27,4 +27,14 @@ public enum OrderType {
   public void setNameMsc(String nameMsc) {
     this.nameMsc = nameMsc;
   }
+  /**是否包含状态点
+   * @param b
+   * @return
+   */
+  public static boolean contain(Byte b){
+    if(b == null){
+      return false;
+    }
+    return b <= CZH.ordinal() && b >= 0;
+  }
 }

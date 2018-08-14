@@ -21,6 +21,23 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="del" property="del" jdbcType="TINYINT" />
   </resultMap>
+  <resultMap id="OrderInfoDtoMap" type="com.collagelone.backend.api.dto.wx.OrderInfoDto" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="order_address_from" property="orderAddressFrom" jdbcType="VARCHAR" />
+    <result column="order_address_to" property="orderAddressTo" jdbcType="VARCHAR" />
+    <result column="order_address_from_code" property="orderAddressFromCode" jdbcType="VARCHAR" />
+    <result column="order_address_to_code" property="orderAddressToCode" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="TINYINT" />
+    <result column="order_status" property="orderStatus" jdbcType="TINYINT" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="order_price" property="orderPrice" jdbcType="VARCHAR" />
+    <result column="order_amount" property="orderAmount" jdbcType="VARCHAR" />
+    <result column="order_amount_fare" property="orderAmountFare" jdbcType="VARCHAR" />
+    <result column="order_begin_time" property="orderBeginTime" jdbcType="DATE" />
+    <result column="order_end_time" property="orderEndTime" jdbcType="DATE" />
+    <result column="order_msc" property="orderMsc" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, user_id, order_address_from, order_address_to, order_address_from_code, order_address_to_code, 
     order_type, order_status, user_phone, order_price, order_amount, order_amount_fare, 
@@ -31,6 +48,36 @@
     <include refid="Base_Column_List" />
     from collage_order
     where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getListCount" resultType="java.lang.Integer">
+    select 
+    COUNT(1)
+    from collage_order
+    <where>
+    del = 0
+    <if test="orderType != null">
+    AND order_type = #{orderType,jdbcType=TINYINT}
+    </if>
+    <if test="orderStatus != null">
+    AND order_status = #{orderStatus,jdbcType=TINYINT}
+    </if>
+    </where> 
+  </select>
+  <select id="getList" resultMap="OrderInfoDtoMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from collage_order
+    <where>
+    del = 0
+    <if test="reqParam.orderType != null">
+    AND order_type = #{reqParam.orderType,jdbcType=TINYINT}
+    </if>
+    <if test="reqParam.orderStatus != null">
+    AND order_status = #{reqParam.orderStatus,jdbcType=TINYINT}
+    </if>
+    </where> 
+    ORDER BY order_begin_time,update_time DESC
+    LIMIT #{pageOffset},#{pageSize}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from collage_order
@@ -173,6 +220,10 @@
       </if>
     </trim>
   </insert>
+  <update id="updateStatusById">
+  UPDATE collage_order SET order_status=#{status,jdbcType=TINYINT}
+  WHERE id = #{id,jdbcType=BIGINT}
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.collagelone.backend.dao.entity.CollageOrder" >
     update collage_order
     <set >

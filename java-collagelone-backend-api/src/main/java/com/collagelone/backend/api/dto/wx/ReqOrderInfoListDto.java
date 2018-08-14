@@ -20,10 +20,21 @@ public class ReqOrderInfoListDto extends ReqPageInfoDto{
    * 订单类型
    */
   private Byte orderType;
+  /**
+   * 订单状态
+   */
+  private Byte orderStatus;
   public Byte getOrderType() {
     return orderType;
   }
   public void setOrderType(Byte orderType) {
     this.orderType = orderType;
   }
+  public Byte getOrderStatus() {
+    return orderStatus;
+  }
+  public void setOrderStatus(Byte orderStatus) {
+    this.orderStatus = orderStatus;
+  }
+  
 }

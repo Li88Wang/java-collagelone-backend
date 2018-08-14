@@ -1,20 +1,17 @@
 package com.collagelone.backend.api;
 
-import java.beans.Transient;
 import java.io.Serializable;
 
 public class MiddlePager implements Serializable {
-    public static final int DEFAULT_PAGE_NUM = 1;
-    public static final int DEFAULT_PAGE_SIZE = 20;
     private static final long serialVersionUID = 2859120789945167474L;
     /**
      * 页号，从1开始
      */
-    private Integer pageNum = DEFAULT_PAGE_NUM;
+    private Integer pageNum;
     /**
      * 每页的大小
      */
-    private Integer pageSize = DEFAULT_PAGE_SIZE;
+    private Integer pageSize;
     /**
      * 总数量
      */
@@ -35,21 +32,38 @@ public class MiddlePager implements Serializable {
     }
 
     public MiddlePager(Integer pageNum, Integer pageSize) {
+      if(pageNum != null){
         this.pageNum = pageNum;
+      }
+      if(pageSize != null){
         this.pageSize = pageSize;
+      }
     }
 
+    public void setPagerInfo(PageInfo page){
+      this.setTotal(page.getTotal());
+      this.setPageNum(page.getPageNum());
+      this.setPageSize(page.getPageSize());
+    }
     public MiddlePager(Integer pageNum, Integer pageSize, boolean count) {
+      if(pageNum != null){
         this.pageNum = pageNum;
+      }
+      if(pageSize != null){
         this.pageSize = pageSize;
-        this.count = count;
+      }
+      this.count = count;
     }
 
     public MiddlePager(Integer pageNum, Integer pageSize, boolean count, boolean fetchAll) {
+      if(pageNum != null){
         this.pageNum = pageNum;
+      }
+      if(pageSize != null){
         this.pageSize = pageSize;
-        this.count = count;
-        this.fetchAll = fetchAll;
+      }
+      this.count = count;
+      this.fetchAll = fetchAll;
     }
 
     public Integer getTotal() {

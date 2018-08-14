@@ -23,13 +23,6 @@ import com.lonedog.platform.common.dto.Result;
  */
 public interface WxOrderService {
 
-  /**更新用户信息
-   * @param codeNo
-   * @param reqUserInfo
-   * @return
-   */
-  Result<Void> updateInfo(String codeNo,ReqUserInfoDto reqUserInfo);
-
   /**订单列表信息查询
    * @param reqData
    * @return
